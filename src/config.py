@@ -1,4 +1,5 @@
 """Central configuration: paths, column names and constants."""
+import os
 from pathlib import Path
 
 # ---- Paths ----
@@ -39,3 +40,10 @@ CATEGORICAL_FEATURES = ["type"]
 # Sanity check: every raw file must contain these columns and rows
 EXPECTED_RAW_COLUMNS = ID_COLUMNS + list(RENAME_MAP.keys()) + LEAKAGE_COLUMNS
 EXPECTED_ROWS = 10_000
+
+# ---- MLflow ----
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://127.0.0.1:5001")
+EXPERIMENT_NAME = "predictive-maintenance"
+REGISTERED_MODEL_NAME = "predictive-maintenance-model"
+MODEL_ALIAS = "production"
+PRIMARY_METRIC = "pr_auc"  # used to choose the best model (robust to class imbalance)
