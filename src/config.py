@@ -47,3 +47,8 @@ EXPERIMENT_NAME = "predictive-maintenance"
 REGISTERED_MODEL_NAME = "predictive-maintenance-model"
 MODEL_ALIAS = "production"
 PRIMARY_METRIC = "pr_auc"  # used to choose the best model (robust to class imbalance)
+
+# ---- Exported model for the API / Docker image ----
+MODEL_DIR = PROJECT_ROOT / "models"
+MODEL_PATH = MODEL_DIR / "model.joblib"
+MODEL_INFO_PATH = MODEL_DIR / "model_info.json"

@@ -1,0 +1,9 @@
+# Minimal dependencies for the prediction API (Docker image).
+# Versions must match the environment the model was trained in.
+pandas==3.0.6
+scikit-learn==1.9.1
+xgboost==3.4.2
+fastapi==0.143.3
+uvicorn==0.54.0
+pydantic==2.14.1
+prometheus-fastapi-instrumentator==8.1.0

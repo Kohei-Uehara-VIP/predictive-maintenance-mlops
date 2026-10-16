@@ -6,6 +6,12 @@ xgboost==3.4.2
 # Experiment tracking & model registry
 mlflow==3.17.1
 
+# API serving
+fastapi==0.143.3
+uvicorn==0.54.0
+pydantic==2.14.1
+prometheus-fastapi-instrumentator==8.1.0
+
 # EDA / plotting
 matplotlib==3.11.2
 seaborn==0.13.2
