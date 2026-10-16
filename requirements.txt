@@ -1,0 +1,11 @@
+# Core data & ML
+pandas==3.0.6
+scikit-learn==1.9.1
+xgboost==3.4.2
+
+# Experiment tracking & model registry
+mlflow==3.17.1
+
+# EDA / plotting
+matplotlib==3.11.2
+seaborn==0.13.2
