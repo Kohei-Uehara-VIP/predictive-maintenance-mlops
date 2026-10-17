@@ -1,0 +1,14 @@
+# Keep the image small: only the API code and the exported model are needed
+.git
+.gitignore
+.dockerignore
+data/
+notebooks/
+docs/
+mlartifacts/
+mlflow.db
+mlruns/
+**/__pycache__/
+*.ipynb
+.env
+.env.*

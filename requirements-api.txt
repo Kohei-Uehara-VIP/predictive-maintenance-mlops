@@ -2,7 +2,9 @@
 # Versions must match the environment the model was trained in.
 pandas==3.0.6
 scikit-learn==1.9.1
-xgboost==3.4.2
+# Local training env uses xgboost 3.4.2 from conda-forge, which is not on PyPI.
+# 3.4.1 is the closest PyPI release; predictions were verified to match.
+xgboost==3.4.1
 fastapi==0.143.3
 uvicorn==0.54.0
 pydantic==2.14.1
