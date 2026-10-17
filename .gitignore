@@ -51,3 +51,8 @@ mlflow.db
 .vscode/
 .idea/
 .claude/
+
+# ============================================
+# Reports (large, regenerated on every run)
+# ============================================
+reports/*.html

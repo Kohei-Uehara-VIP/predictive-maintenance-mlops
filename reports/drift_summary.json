@@ -1,0 +1,8 @@
+{
+  "drift_detected": true,
+  "drifted_columns": [
+    "air_temperature_k",
+    "process_temperature_k"
+  ],
+  "drifted_share": 0.333
+}

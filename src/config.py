@@ -52,3 +52,9 @@ PRIMARY_METRIC = "pr_auc"  # used to choose the best model (robust to class imba
 MODEL_DIR = PROJECT_ROOT / "models"
 MODEL_PATH = MODEL_DIR / "model.joblib"
 MODEL_INFO_PATH = MODEL_DIR / "model_info.json"
+
+# ---- Monitoring (data drift) ----
+REPORTS_DIR = PROJECT_ROOT / "reports"
+DRIFT_REPORT_PATH = REPORTS_DIR / "drift_report.html"
+DRIFT_SUMMARY_PATH = REPORTS_DIR / "drift_summary.json"
+PRODUCTION_DATA_PATH = DATA_DIR / "production_simulated.csv"
