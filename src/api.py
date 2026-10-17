@@ -25,7 +25,10 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Predictive Maintenance API", version="1.0.0", lifespan=lifespan)
-Instrumentator().instrument(app).expose(app)  # exposes GET /metrics for Prometheus
+# Finer latency buckets: the default (0.1, 0.5, 1 s) is too coarse for a ~ms API
+Instrumentator().instrument(
+    app, latency_lowr_buckets=(0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1)
+).expose(app)
 
 
 class MachineReading(BaseModel):

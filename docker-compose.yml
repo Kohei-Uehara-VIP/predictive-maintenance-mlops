@@ -1,0 +1,69 @@
+# One command starts the whole stack:  docker compose up -d --build
+services:
+  api:
+    build: .
+    image: predictive-maintenance-api:latest
+    container_name: pm-api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v3.17.1
+    container_name: pm-mlflow
+    # Mount the project at the same path as on the host, so the run and
+    # artifact paths already stored in mlflow.db stay valid inside the container
+    working_dir: ${PWD}
+    volumes:
+      - ${PWD}:${PWD}
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:///mlflow.db
+      --default-artifact-root ./mlartifacts
+      --host 0.0.0.0
+      --port 5001
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+
+  prefect:
+    image: prefecthq/prefect:3.8.8-python3.12
+    container_name: pm-prefect
+    command: prefect server start --host 0.0.0.0
+    environment:
+      PREFECT_UI_API_URL: http://localhost:4200/api
+      PREFECT_SERVER_ANALYTICS_ENABLED: "false"
+    volumes:
+      - prefect-data:/root/.prefect
+    ports:
+      - "4200:4200"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: pm-prometheus
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:12.0.0
+    container_name: pm-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  prefect-data:
